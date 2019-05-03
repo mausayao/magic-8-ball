@@ -9,12 +9,34 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    let responses = ["ball1", "ball2", "ball3", "ball4", "ball5"]
+    @IBOutlet weak var ballImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        updateResponse()
     }
 
-
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        updateResponse()
+    }
+    
+    @IBAction func askMe(_ sender: UIButton) {
+        updateResponse()
+    }
+    
+    private func updateResponse() {
+        ballImageView.image = getAResponseFromQuestion()
+    }
+    
+    private func getARandomIndex() -> Int {
+        return Int.random(in: 0 ... 4)
+    }
+    
+    private func getAResponseFromQuestion() -> UIImage {
+        let response = responses[getARandomIndex()]
+        let image = UIImage(named: response)
+        return image!
+    }
 }
 
